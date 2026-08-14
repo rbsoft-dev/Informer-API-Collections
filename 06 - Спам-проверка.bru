@@ -1,0 +1,31 @@
+meta {
+  name: 06 - Спам-проверка
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/notify
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  X-Api-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "header": "RateLimitTest",
+    "description": "Спам-проверка",
+    "ResponseBody": { "n": 1 }
+  }
+}
+
+docs {
+  Нажми "Send" подряд больше раз, чем RateLimitMaxRequests за
+  RateLimitWindowSeconds (по умолчанию 20 запросов / 10 секунд, см. окно
+  "Настройки"). После превышения лимита должен прийти 429 Too Many Requests
+  с заголовком Retry-After.
+}

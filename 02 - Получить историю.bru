@@ -1,0 +1,23 @@
+meta {
+  name: 02 - Получить историю
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/history?page=1&pageSize=50
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  pageSize: 50
+  sender: 
+}
+
+docs {
+  Без параметра sender возвращает все записи. Добавь sender=TestSender чтобы
+  проверить фильтрацию (то же самое, что делает выпадающий список в окне
+  "История уведомлений").
+}

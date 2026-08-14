@@ -1,0 +1,39 @@
+meta {
+  name: 01 - Получить ошибку
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/notify
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  X-Api-Key: {{apiKey}}
+}
+
+body:json {
+  {
+    "header": "1Сv04",
+    "description": "Ошибка,тут что то прислал 4 1С",
+    "type":"error",
+    "ResponseBody": {
+       "documentId": 4521,
+       "documentType": "РеализацияТоваров",
+       "sum": 15000.50,
+       "sessionId": "a3f4-9921"
+    }
+  }
+  
+}
+
+docs {
+  Если в настройках выключена галка "Требовать API-ключ" — просто удали строку
+  X-Api-Key из headers, сервер её проигнорирует в любом случае.
+  
+  Ожидаемый ответ: 201 Created, {"id": <число>}, и в правом нижнем углу
+  экрана должен появиться тост с текстом description.
+}

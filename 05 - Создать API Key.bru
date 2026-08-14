@@ -1,0 +1,26 @@
+meta {
+  name: 05 - Создать API Key
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/apikeys
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "label": "Bruno test key"
+  }
+}
+
+docs {
+  Ответ содержит поле "key" — скопируй его в переменную окружения apiKey
+  (environments/Local.bru), чтобы использовать в запросе "01 - Notify".
+}

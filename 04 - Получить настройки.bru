@@ -1,0 +1,16 @@
+meta {
+  name: 04 - Получить настройки
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/settings
+  body: json
+  auth: none
+}
+
+docs {
+  Покажет текущие RetentionDays, RequireApiKey, ToastDisplaySeconds и лимиты
+  анти-спама — то же самое, что в окне "Настройки", только в JSON.
+}
