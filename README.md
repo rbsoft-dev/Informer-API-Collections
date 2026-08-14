@@ -1,93 +1,74 @@
-# Informer-api-collections
+# Informer API Collections
 
+Коллекция запросов [Bruno](https://www.usebruno.com) для тестирования REST API приложения
+[Информер](https://git.rbsoft.ru/ershov/informer) — трей-приложения для приёма уведомлений
+по HTTP из внешних систем (1С, кассовое ПО и т.д.).
 
+## Как открыть коллекцию
 
-## Getting started
+1. Склонируй этот репозиторий:
+   ```powershell
+   git clone https://git.rbsoft.ru/ershov/informer-api-collections.git
+   ```
+2. Открой Bruno → **Open Collection** → укажи папку `informer-api-collections`
+3. Bruno подхватит все запросы и покажет их в боковой панели
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Настрой окружение (обязательно перед первым запуском)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Файлы окружений (`environments/`) **намеренно не хранятся в этом репозитории** — там
+обычно оказываются реальные значения API-ключей, а это чувствительные данные, которым не
+место в открытом Git-репозитории.
 
-## Add your files
+Создай своё окружение локально:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+1. В Bruno: **ПКМ на коллекции → Configure → Environments → Create Environment**
+2. Назови, например, `Local`
+3. Добавь переменные:
 
+| Переменная | Значение (пример) |
+|---|---|
+| `baseUrl` | `http://127.0.0.1:4399` |
+| `apiKey` | `<твой ключ из Настроек → API-ключи>` (если в Информере включено "Требовать API-ключ") |
+
+4. Выбери это окружение в выпадающем списке сверху перед выполнением запросов
+
+> ⚠️ Порт по умолчанию у Информера — **`4399`** — сверься с реальным портом в Настройках Информера, если он был изменён.
+
+## Список запросов в коллекции
+
+| Запрос | Метод | Эндпоинт | Назначение |
+|---|---|---|---|
+| 01-Notify | `POST` | `/api/notify` | Отправить тестовое уведомление (появится тост в Информере) |
+| 02-GetHistory | `GET` | `/api/history` | Получить список уведомлений с фильтрами/пагинацией |
+| 03-GetSenders | `GET` | `/api/history/senders` | Список уникальных отправителей (для фильтра) |
+| 04-GetSettings | `GET` | `/api/settings` | Текущие настройки приложения |
+| 05-CreateAPIKey | `POST` | `/api/apikeys` | Создать новый API-ключ |
+| 06-RateLimitCheck | `POST` | `/api/notify` | Проверка анти-спам лимита (несколько быстрых запросов подряд) |
+
+## Формат тела запроса `01-Notify`
+
+```json
+{
+  "header": "TestSender",
+  "description": "Тестовое сообщение из Bruno",
+  "type": "info",
+  "ResponseBody": {
+    "any": "произвольная структура"
+  }
+}
 ```
-cd existing_repo
-git remote add origin https://git.rbsoft.ru/ershov/informer-api-collections.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+`type` — необязательное поле: `info` (по умолчанию), `warning` или `error` — влияет на цвет
+рамки тоста в Информере. Подробности формата — в
+[README основного проекта](https://git.rbsoft.ru/ershov/informer#api--формат-входящего-запроса).
 
-- [ ] [Set up project integrations](https://git.rbsoft.ru/ershov/informer-api-collections/-/settings/integrations)
+## Если Информер требует API-ключ
 
-## Collaborate with your team
+Заголовок `X-Api-Key` уже прописан в запросах коллекции как `{{apiKey}}` — подставится
+автоматически из переменной окружения, которую ты создал выше. Если в Информере (Настройки →
+Безопасность) галка "Требовать API-ключ" выключена — заголовок можно оставить пустым, ошибки
+не будет.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+## Связанные репозитории
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- [Информер](https://git.rbsoft.ru/ershov/informer)
