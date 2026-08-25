@@ -1,7 +1,7 @@
 # Informer API Collections
 
 Коллекция запросов [Bruno](https://www.usebruno.com) для тестирования REST API приложения
-[Информер](https://git.rbsoft.ru/ershov/informer) — трей-приложения для приёма уведомлений
+[Информер](https://github.com/rbsoft03/Informer) — трей-приложения для приёма уведомлений
 по HTTP из внешних систем (1С, кассовое ПО и т.д.).
 
 ## Как открыть коллекцию
@@ -60,7 +60,7 @@
 
 `type` — необязательное поле: `info` (по умолчанию), `warning` или `error` — влияет на цвет
 рамки тоста в Информере. Подробности формата — в
-[README основного проекта](https://git.rbsoft.ru/ershov/informer#api--формат-входящего-запроса).
+[README основного проекта]([https://git.rbsoft.ru/ershov/informer#api--формат-входящего-запроса](https://github.com/rbsoft03/Informer#api--%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82-%D0%B2%D1%85%D0%BE%D0%B4%D1%8F%D1%89%D0%B5%D0%B3%D0%BE-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)).
 
 ## Если Информер требует API-ключ
 
@@ -71,4 +71,4 @@
 
 ## Связанные репозитории
 
-- [Информер](https://git.rbsoft.ru/ershov/informer)
+- [Информер](https://github.com/rbsoft03/Informer)
