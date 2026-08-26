@@ -1,5 +1,7 @@
 # Informer API Collections
 
+[RU Русский](README.md) | [EN English](README.en.md)
+
 Коллекция запросов [Bruno](https://www.usebruno.com) для тестирования REST API приложения
 [Информер](https://github.com/rbsoft03/Informer) — трей-приложения для приёма уведомлений
 по HTTP из внешних систем (1С, кассовое ПО и т.д.).
